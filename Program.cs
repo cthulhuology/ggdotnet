@@ -23,8 +23,9 @@ namespace ggdotnet
 		[DllImport("libaws-greengrass-core-sdk-c.so",  CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
 		public static extern int gg_runtime_start(Callback handler, int opt);
 
-	//	[DllImport("libaws-greengrass-core-sdk-c.so", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
-	//	wUnsafeBlocks>true</AllowUnsafeBlocks>
+		[DllImport("libaws-greengrass-core-sdk-c.so", CallingConvention=CallingConvention.Cdecl, CharSet=CharSet.Ansi)]
+		public static extern int gg_lambda_handler_read(ref string buffer, int buffer_size, ref int amount_read);
+	
 
 	}	
 
@@ -42,8 +43,10 @@ namespace ggdotnet
 			Greengrass.Callback handler = (ref Greengrass.gg_lambda_context context) => {
 				Console.WriteLine(String.Format("ARN: {0}",context.function_arn));
 				Console.WriteLine(String.Format("Context: {0}",context.client_context));
+				
+				int err = gg_lambda_handler_read(	
 			};
-			Greengrass.gg_runtime_start(handler,1);
+			Greengrass.gg_runtime_start(handler,0); // sync
 
 		}
 	}
