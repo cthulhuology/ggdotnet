@@ -44,7 +44,7 @@ namespace ggdotnet
 				Console.WriteLine(String.Format("ARN: {0}",context.function_arn));
 				Console.WriteLine(String.Format("Context: {0}",context.client_context));
 				
-				int err = gg_lambda_handler_read(	
+				// int err = gg_lambda_handler_read(	
 			};
 			Greengrass.gg_runtime_start(handler,0); // sync
 
